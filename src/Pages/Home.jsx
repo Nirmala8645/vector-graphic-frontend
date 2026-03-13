@@ -49,6 +49,7 @@ const Home = () => {
           className="w-full h-[250px] md:h-[400px] lg:h-[600px] object-cover"
         />
       </div>
+      
       <Card />
       <ServicesSection />
       <OurWork />
