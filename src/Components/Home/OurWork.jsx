@@ -1,38 +1,41 @@
-import React, { useRef, useEffect } from "react";
-
-const TILT_PATTERN = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+import React, { useEffect } from "react";
 
 const allImages = [
-  { id: 1, src: "/images/work_1.webp" },
-  { id: 2, src: "/images/work_2.webp" },
-  { id: 3, src: "/images/work_3.webp" },
-  { id: 4, src: "/images/work_4.webp" },
-  { id: 5, src: "/images/work_5.webp" },
-  { id: 6, src: "/images/work_6.webp" },
-  { id: 7, src: "/images/work_7.webp" },
-  { id: 8, src: "/images/work_8.webp" },
-  { id: 9, src: "/images/work_9.webp" },
-  { id: 10, src: "/images/work_10.webp" }
+  { id: 1, src: "/images/work_1.webp", title: "Are You Ready for the 2D Barcode Revolution? 7 Powerful Ways 2D Barcodes Are Transforming Businesses in 2026." },
+  { id: 2, src: "/images/work_2.webp", title: "Are You Ready for the 2D Barcode Revolution? 7 Powerful Ways 2D Barcodes Are Transforming Businesses in 2026." },
+  { id: 3, src: "/images/work_3.webp", title: "Are You Ready for the 2D Barcode Revolution? 7 Powerful Ways 2D Barcodes Are Transforming Businesses in 2026." },
+  { id: 4, src: "/images/work_4.webp", title: "Are You Ready for the 2D Barcode Revolution? 7 Powerful Ways 2D Barcodes Are Transforming Businesses in 2026." },
+  { id: 5, src: "/images/work_5.webp", title: "Are You Ready for the 2D Barcode Revolution? 7 Powerful Ways 2D Barcodes Are Transforming Businesses in 2026." },
+  { id: 6, src: "/images/work_6.webp", title: "Are You Ready for the 2D Barcode Revolution? 7 Powerful Ways 2D Barcodes Are Transforming Businesses in 2026." },
+  { id: 7, src: "/images/work_7.webp", title: "Are You Ready for the 2D Barcode Revolution? 7 Powerful Ways 2D Barcodes Are Transforming Businesses in 2026." },
+  { id: 8, src: "/images/work_8.webp", title: "Are You Ready for the 2D Barcode Revolution? 7 Powerful Ways 2D Barcodes Are Transforming Businesses in 2026." },
+  { id: 9, src: "/images/work_9.webp", title: "Are You Ready for the 2D Barcode Revolution? 7 Powerful Ways 2D Barcodes Are Transforming Businesses in 2026." },
+  { id: 10, src: "/images/work_10.webp", title: "Are You Ready for the 2D Barcode Revolution? 7 Powerful Ways 2D Barcodes Are Transforming Businesses in 2026." },
 ];
 
-// ── Mobile: marquee scroll (same as Industries page) ─────────
+// ── Mobile: CSS animation (same as desktop, mobile sizes) ─────
 function MobileMarquee() {
+  const doubled = [...allImages, ...allImages];
+
   return (
     <div style={{ overflow: "hidden", width: "100%", marginTop: "24px" }}>
-      <marquee behavior="scroll" direction="left" scrollamount="20">
-        <div style={{ display: "inline-flex", gap: "16px", padding: "8px 0" }}>
-          {[...allImages, ...allImages].map((img, i) => (
+      <div className="ow-marquee-track-mobile">
+        {doubled.map((img, i) => (
+          <div
+            key={i}
+            style={{
+              width: "250px",
+              flexShrink: 0,
+              display: "flex",
+              flexDirection: "column",
+            }}
+          >
             <div
-              key={i}
               style={{
-                width: "75vw",
-                maxWidth: "300px",
-                minWidth: "200px",
-                height: "260px",
+                width: "250px",
+                height: "220px",
                 borderRadius: "12px",
                 overflow: "hidden",
-                flexShrink: 0,
-                display: "inline-block",
                 background: "#e5e7eb",
               }}
             >
@@ -44,103 +47,54 @@ function MobileMarquee() {
                 onError={(e) => (e.target.style.display = "none")}
               />
             </div>
-          ))}
-        </div>
-      </marquee>
+            <div style={{ padding: "8px 0 0", width: "250px" }}>
+              <p style={{
+                margin: 0,
+                fontSize: "16px",
+                fontWeight: "600",
+                color: "#111111",
+                lineHeight: "150%",
+                whiteSpace: "normal",
+              }}>
+                {img.title}
+              </p>
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
 
-// ── Desktop/Tablet: original drag scroll ─────────────────────
-function DesktopTrack() {
-  const trackRef = useRef(null);
-  const clipId = "ourWorkCurveClip";
-
- const isDragging = useRef(false);  
-const startX = useRef(0);
-const scrollStart = useRef(0);
-const hasDragged = useRef(false);
-
-const onMouseDown = (e) => {
-  isDragging.current = true;
-  hasDragged.current = false;
-  startX.current = e.pageX;
-  scrollStart.current = trackRef.current.scrollLeft;
-  e.preventDefault();
-};
-
-const onMouseMove = (e) => {
-  if (!isDragging.current) return;  
-  const dx = e.pageX - startX.current;
-  if (Math.abs(dx) > 3) hasDragged.current = true;
-  trackRef.current.scrollLeft = scrollStart.current - dx;
-};
-
-const onMouseUp = () => {           
-  isDragging.current = false;
-};
-
-const onClickCapture = (e) => {
-  if (hasDragged.current) {
-    e.stopPropagation();
-    e.preventDefault();
-    hasDragged.current = false;
-  }
-};
+// ── Desktop: CSS marquee with description ─────────────────────
+function DesktopMarquee() {
+  const doubled = [...allImages, ...allImages];
 
   return (
-    <>
-      <svg width="0" height="0" style={{ position: "absolute" }} aria-hidden="true">
-        <defs>
-          <clipPath id={clipId} clipPathUnits="objectBoundingBox">
-            <path d="M 0 0.14 Q 0.5 0.3 1 0.14 L 1 0.86 Q 0.5 0.6 0 0.86 Z" />
-          </clipPath>
-        </defs>
-      </svg>
-
-      <div
-        style={{
-          position: "relative",
-          width: "100%",
-          clipPath: `url(#${clipId})`,
-          marginTop: "-30px",
-          marginBottom: "-30px",
-        }}
-      >
-        <div
-          ref={trackRef}
-          className="ow-track"
-          onMouseDown={onMouseDown}
-          onMouseMove={onMouseMove}
-          onMouseUp={onMouseUp}
-          onMouseLeave={onMouseUp}
-          onClickCapture={onClickCapture}
-        >
-          {allImages.map((img, index) => {
-            const tilt = TILT_PATTERN[index % TILT_PATTERN.length];
-            return (
-              <div
-                key={img.id}
-                className="ow-card"
-                style={{ transform: `rotate(${tilt}deg)`, transformOrigin: "center center" }}
-              >
-                <img
-                  src={img.src}
-                  alt={`work-${img.id}`}
-                  draggable="false"
-                  style={{ display: "block", width: "100%", height: "100%", objectFit: "cover" }}
-                  onError={(e) => (e.target.style.display = "none")}
-                />
-              </div>
-            );
-          })}
-        </div>
+    <div style={{ overflow: "hidden", width: "100%", marginTop: "32px" }}>
+      <div className="ow-marquee-track">
+        {doubled.map((img, i) => (
+          <div key={i} className="ow-card-wrap">
+            <div className="ow-card">
+              <img
+                src={img.src}
+                alt={`work-${img.id}`}
+                draggable="false"
+                style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+                onError={(e) => (e.target.style.display = "none")}
+              />
+            </div>
+            <div className="ow-card-desc">
+              <p className="ow-card-title">{img.title}</p>
+            </div>
+          </div>
+        ))}
       </div>
-    </>
+    </div>
   );
 }
 
-// ── Root ─────────────────────────────────────────────────────
+// ── Root ──────────────────────────────────────────────────────
 export default function OurWork() {
   const [isMobile, setIsMobile] = React.useState(
     typeof window !== "undefined" ? window.innerWidth < 768 : false
@@ -156,8 +110,10 @@ export default function OurWork() {
   return (
     <>
       <style>{`
-        .ow-track::-webkit-scrollbar { display: none; }
-        .ow-track { -ms-overflow-style: none; scrollbar-width: none; }
+        @keyframes ow-scroll {
+          from { transform: translateX(0); }
+          to   { transform: translateX(-50%); }
+        }
 
         .ow-heading {
           font-family: 'Ultra', sans-serif;
@@ -168,27 +124,39 @@ export default function OurWork() {
           margin: 0;
         }
 
-        .ow-track {
+        /* Desktop track */
+        .ow-marquee-track {
           display: flex;
           flex-direction: row;
-          align-items: center;
-          gap: 48px;
-          overflow-x: auto;
-          overflow-y: visible;
-          padding-top: 40px;
-          padding-bottom: 40px;
-          cursor: default;
-          user-select: none;
+          align-items: flex-start;
+          gap: 42px;
+          width: max-content;
+          animation: ow-scroll 35s linear infinite;
+          padding: 8px 0 24px;
+        }
+
+        /* Mobile track — same animation, smaller cards */
+        .ow-marquee-track-mobile {
+          display: flex;
+          flex-direction: row;
+          align-items: flex-start;
+          gap: 16px;
+          width: max-content;
+          animation: ow-scroll 25s linear infinite;
+          padding: 8px 0 24px;
+        }
+
+        .ow-card-wrap {
+          flex-shrink: 0;
+          width: 575px;
         }
 
         .ow-card {
-          flex-shrink: 0;
-          width: 386px;
-          height: 512px;
+          width: 100%;
+          height: 360px;
+          border-radius: 10px;
           overflow: hidden;
           background: #e5e7eb;
-          border-radius: 4px;
-          pointer-events: auto;
         }
 
         .ow-card img {
@@ -197,9 +165,15 @@ export default function OurWork() {
           -webkit-user-drag: none;
         }
 
-        @media (max-width: 1023px) {
-          .ow-track { gap: 32px; }
-          .ow-card { width: 300px; height: 400px; }
+        .ow-card-desc {
+          padding: 12px 4px 0;
+        }
+
+        .ow-card-title {
+          margin: 0 0 4px;
+          font-size: 18px;
+          font-weight: 600;
+          color: #111111;
         }
       `}</style>
 
@@ -213,9 +187,14 @@ export default function OurWork() {
           overflow: "hidden",
         }}
       >
-        <h2 className="ow-heading">Our Work</h2>
+        <div className="h-auto flex justify-between md:px-12 px-2">
+          <h2 className="ow-heading">Our Work</h2>
+          <a href="/works" className="md:text-[18px] text-[16px]">
+            Browse all ↗
+          </a>
+        </div>
 
-        {isMobile ? <MobileMarquee /> : <DesktopTrack />}
+        {isMobile ? <MobileMarquee /> : <DesktopMarquee />}
       </section>
     </>
   );
