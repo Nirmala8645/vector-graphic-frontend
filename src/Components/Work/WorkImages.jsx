@@ -4,70 +4,70 @@ import { useState } from "react";
 const allImages = [
   {
     id: 1,
-    src: "/images/work_1.webp",
+    src: "/images/workpage_1.webp",
     title: "Discussion of the Idea",
     description:
       "Explore our gallery of completed projects across design, packaging.",
   },
   {
     id: 2,
-    src: "/images/work_2.webp",
+    src: "/images/workpage_2.webp",
     title: "Discussion of the Idea",
     description:
       "Explore our gallery of completed projects across design, packaging.",
   },
   {
     id: 3,
-    src: "/images/work_3.webp",
+    src: "/images/workpage_3.webp",
     title: "Discussion of the Idea",
     description:
       "Explore our gallery of completed projects across design, packaging.",
   },
   {
     id: 4,
-    src: "/images/work_4.webp",
+    src: "/images/workpage_4.webp",
     title: "Discussion of the Idea",
     description:
       "Explore our gallery of completed projects across design, packaging.",
   },
   {
     id: 5,
-    src: "/images/work_5.webp",
+    src: "/images/workpage_5.webp",
     title: "Discussion of the Idea",
     description:
       "Explore our gallery of completed projects across design, packaging.",
   },
   {
     id: 6,
-    src: "/images/work_6.webp",
+    src: "/images/workpage_6.webp",
     title: "Discussion of the Idea",
     description:
       "Explore our gallery of completed projects across design, packaging.",
   },
   {
     id: 7,
-    src: "/images/work_7.webp",
+    src: "/images/workpage_7.webp",
     title: "Discussion of the Idea",
     description:
       "Explore our gallery of completed projects across design, packaging.",
   },
   {
     id: 8,
-    src: "/images/work_8.webp",
+    src: "/images/workpage_8.webp",
     title: "Discussion of the Idea",
     description:
       "Explore our gallery of completed projects across design, packaging.",
   },
   {
     id: 9,
-    src: "/images/work_9.webp",
+    src: "/images/workpage_9.webp",
     title: "Discussion of the Idea",
     description:
       "Explore our gallery of completed projects across design, packaging.",
   },
   {
     id: 10,
-    src: "/images/work_10.webp",
+    src: "/images/workpage_10.webp",
     title: "Discussion of the Idea",
     description:
       "Explore our gallery of completed projects across design, packaging.",

@@ -12,7 +12,6 @@ const slugify = (str = "") =>
     .replace(/\s+/g, "-")
     .replace(/-+/g, "-");
 
-// ─── Inline <strong> parser ───────────────────────────────────────────────────
 const renderInlineHTML = (text) => {
   if (!text || !text.includes("<strong>")) return text;
   const parts = text.split(/(<strong>.*?<\/strong>)/g);
@@ -23,21 +22,15 @@ const renderInlineHTML = (text) => {
   });
 };
 
-// Table of Contents
 const TableOfContents = ({ items, activeId, onItemClick }) => (
   <div className="sticky top-8">
-    {/* Header */}
     <p
       className="text-[15px] md:text-[16px] mb-4"
       style={{ fontFamily: "unbounded", fontWeight: "700", color: "#111111" }}
     >
       In this article
     </p>
-
-    {/* Divider */}
     <div className="w-full h-[1px] bg-gray-200 mb-2" />
-
-    {/* Items */}
     <ul className="space-y-0">
       {items.map((item) => {
         const isActive = activeId === item.id;
@@ -57,7 +50,6 @@ const TableOfContents = ({ items, activeId, onItemClick }) => (
             >
               {item.text}
             </button>
-            {/* Bottom divider between items */}
             <div className="w-full h-[1px] bg-gray-100" />
           </li>
         );
@@ -66,7 +58,6 @@ const TableOfContents = ({ items, activeId, onItemClick }) => (
   </div>
 );
 
-// ─── Blog Content Renderer ────────────────────────────────────────────────────
 const BlogContent = ({ sections }) => {
   const used = new Map();
 
@@ -168,7 +159,6 @@ const BlogContent = ({ sections }) => {
           );
         }
 
-        // default: paragraph
         return (
           <p
             key={i}
@@ -183,7 +173,6 @@ const BlogContent = ({ sections }) => {
   );
 };
 
-// ─── SubBlogPage ──────────────────────────────────────────────────────────────
 export const SubBlogPage = ({ blogId, onBack }) => {
   const blog = THOUGHTS.find((b) => b.id === blogId);
 
@@ -196,7 +185,6 @@ export const SubBlogPage = ({ blogId, onBack }) => {
         },
       ];
 
-  // Build TOC from h3 headings
   const toc = useMemo(() => {
     const used = new Map();
     return sections
@@ -212,7 +200,6 @@ export const SubBlogPage = ({ blogId, onBack }) => {
 
   const [activeId, setActiveId] = useState(toc[0]?.id || "");
 
-  // Intersection observer for active TOC item
   useEffect(() => {
     if (!toc.length) return;
     const headingEls = toc
@@ -259,7 +246,6 @@ export const SubBlogPage = ({ blogId, onBack }) => {
     );
   }
 
-  // Related posts (same category, exclude current)
   const related = THOUGHTS.filter(
     (b) => b.id !== blog.id && b.category === blog.category,
   ).slice(0, 3);
@@ -282,7 +268,6 @@ export const SubBlogPage = ({ blogId, onBack }) => {
           {/* Sidebar TOC */}
           {toc.length > 0 && (
             <div className="lg:w-[400px] flex-shrink-0 hidden lg:block mt-4">
-              {/* Back button above TOC */}
               <button
                 onClick={onBack}
                 className="inline-flex items-center gap-2 rounded text-[14px] font-poppins font-medium bg-[#FFD7D7] px-[10px] py-[10px] text-black transition-colors mb-6"
@@ -302,38 +287,45 @@ export const SubBlogPage = ({ blogId, onBack }) => {
 
           {/* Article content */}
           <div className="flex-1 max-w-[790px]">
-            <div className="pt-6">
-              <div className="w-full h-[210px] lg:h-[462px] mb-0 bg-gray-100 overflow-hidden">
-                <img
-                  src={blog.heroImage || blog.src}
-                  alt={blog.title}
-                  className="w-full h-full object-cover"
-                />
-              </div>
+           <div className="pt-6 mb-6">
 
-              {/* Caption below hero image */}
-              {blog.caption && (
-                <div className="bg-gray-50 px-4 py-3 mb-6 border-b border-gray-200">
-                  <p
-                    className="text-[14px] lg:text-[16px] font-semibold text-gray-800 leading-snug mb-1"
-                    style={{ fontFamily: "poppins" }}
-                  >
-                    {blog.caption}
-                  </p>
-                  <p
-                    className="text-[12px] text-gray-400"
-                    style={{ fontFamily: "poppins" }}
-                  >
-                    {blog.date} · {blog.readTime}
-                  </p>
-                </div>
-              )}
-            </div>
+  {/* Single rounded card — image + text overlay inside */}
+  <div className="relative w-full h-[210px] lg:h-[462px] bg-gray-100 overflow-hidden rounded-xl">
+    
+    {/* Image */}
+    <img
+      src={blog.heroImage || blog.src}
+      alt={blog.title}
+      className="w-full h-full object-cover"
+    />
+
+    {/* Dark gradient overlay */}
+  <div className="absolute bottom-0 left-0 right-0 h-[30%] bg-black/20 backdrop-blur-[21px]" />
+    {/* Text inside image at bottom */}
+    <div className="absolute bottom-0 left-0 right-0 p-3 lg:p-8">
+      <h2
+        className="text-white text-[16px] lg:text-[20px] font-bold leading-snug mb-2"
+        style={{ fontFamily: "unbounded" }}
+      >
+        {blog.title}
+      </h2>
+      <p
+        className="text-white/60 text-[12px] lg:text-[14px]"
+        style={{ fontFamily: "poppins" }}
+      >
+        {blog.date} &nbsp;·&nbsp; {blog.readTime}
+      </p>
+    </div>
+
+  </div>
+
+</div>
 
             <BlogContent sections={sections} />
           </div>
         </div>
       </div>
+
       <CTASection
         heading={blog.cta?.heading || "Ready to Elevate Your Packaging?"}
         subheading={

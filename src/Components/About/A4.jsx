@@ -194,7 +194,7 @@ useEffect(() => {
           }}
         >
           <img
-            src="/images/crossed_image.webp"
+            src="/images/service_hover.webp"
             alt="Design Solutions"
             className="w-full h-full object-cover"
           />

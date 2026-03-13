@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 
 const images = [
-  { src: "/images/Frame.png", alt: "City lights",   rotate: -4.03, translateY: -10, zIndex: 4 },
-  { src: "/images/Frame.png", alt: "Portrait",      rotate:  8.69, translateY: -8,  zIndex: 1 },
-  { src: "/images/Frame.png", alt: "Abstract blue", rotate: -2.09, translateY: -15, zIndex: 4 },
-  { src: "/images/Frame.png", alt: "Mountains",     rotate: -11.05,translateY: -20, zIndex: 4 },
-  { src: "/images/Frame.png", alt: "Butterfly",     rotate:  10,   translateY: -15, zIndex: 4 },
+  { src: "/images/creative_1.webp", alt: "City lights",   rotate: -4.03, translateY: -10, zIndex: 4 },
+  { src: "/images/creative_2.webp", alt: "Portrait",      rotate:  8.69, translateY: -8,  zIndex: 1 },
+  { src: "/images/creative_3.webp", alt: "Abstract blue", rotate: -2.09, translateY: -15, zIndex: 4 },
+  { src: "/images/creative_4.webp", alt: "Mountains",     rotate: -11.05,translateY: -20, zIndex: 4 },
+  { src: "/images/creative_5.webp", alt: "Butterfly",     rotate:  10,   translateY: -15, zIndex: 4 },
 ];
 
 export default function Imagesection() {
