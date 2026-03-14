@@ -89,9 +89,10 @@ export default function Footer() {
         <div className="border-t border-white/40 mt-[32px] md:mt-[40px]" />
 
         {/* COPYRIGHT */}
-        <div className="text-center lg:text-[18px] sm:text-[13px] md:text-[15px] opacity-90 pt-[12px] md:pt-[16px]">
-          © 2026 <span>vectorgraphics.com</span> All Rights Reserved.
-        </div>
+       <div className="text-center lg:text-[18px] sm:text-[13px] md:text-[15px] opacity-90 pt-[12px] md:pt-[16px]">
+  © 2026 <span>vectorgraphics.com </span>
+  <span className="block sm:inline">Designed by SKYUP Digital Solutions.</span>
+</div>
       </div>
     </footer>
   );
